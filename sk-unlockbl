@@ -1,0 +1,64 @@
+# TOOL_T3AMX3_SKWAMX3 Serial - PowerShell Version
+
+# ตั้งขนาดหน้าจอ & สีใกล้เคียงกับ color 6f
+$rawUI = $Host.UI.RawUI
+$size  = $rawUI.WindowSize
+$size.Width  = 35
+$size.Height = 12
+$rawUI.WindowSize = $size
+$rawUI.BufferSize = $size
+$rawUI.WindowTitle = "TOOL_SKWAMX3_UNLOCK BOOTLOADER"
+$rawUI.BackgroundColor = "DarkYellow"
+$rawUI.ForegroundColor = "White"
+Clear-Host
+
+function Show-Menu {
+    Clear-Host
+    Write-Host ""
+    Write-Host ""
+    Write-Host ""
+    Write-Host " 1 - UNLOCK BOOTLOADER"
+    Write-Host " 2 - Reset UPDATE"
+    Write-Host " 3 - EXIT"
+    Write-Host ""
+}
+
+function Do-Op1 {
+    # เทียบกับ :op1 ใน batch
+./update.exe identify 7
+./update.exe bulkcmd "store init 3"
+./update.exe bulkcmd "store rom_protect off"
+./update.exe bulkcmd "store scrub all"
+./update.exe bulkcmd "store erase key"
+./update.exe bulkcmd "store erase boot"
+./update.exe bulkcmd "store erase data"
+./update.exe bulkcmd "store erase dtb"
+./update.exe bulkcmd "mmc erase 0 0x4000"
+./update.exe partition bootloader ".\bootloader.img"
+./update.exe partition _aml_dtb ".\dt.img"
+./update.exe bulkcmd "reboot"
+    Write-Host ""
+    Read-Host "Enter Goto Manu"
+}
+
+function Do-FX {
+    # เทียบกับ :FX ใน batch
+./update bulkcmd "update"
+    Read-Host "Enter Goto Manu"
+}
+
+# ===== main loop =====
+while ($true) {
+    Show-Menu
+    $M = Read-Host "Type 1, 2 ENTER"
+
+    switch ($M) {
+        '1' { Do-Op1 }
+        '2' { Do-FX }
+        '3' { break }
+        default {
+            Write-Host "เลือกไม่ถูกต้อง" -ForegroundColor Red
+            Start-Sleep -Seconds 1
+        }
+    }
+}
