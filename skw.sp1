@@ -18,7 +18,7 @@ function Show-Menu {
     Write-Host ""
     Write-Host ""
     Write-Host " 1 - SK/T3 Flash custom Serial"
-    Write-Host " 2 - FIX T3AMX3 Usb bring Mode"
+    Write-Host " 2 - RUN UPDATE MODE"
     Write-Host " 3 - EXIT"
     Write-Host ""
 }
@@ -27,7 +27,6 @@ function Do-Op1 {
     # เทียบกับ :op1 ใน batch
 ./update bulkcmd "keyman init 0x1234"
 ./update bulkcmd "keyman write usid str 24154048420000"
-./update bulkcmd "keyman read usid"
 ./update bulkcmd "saveenv"
 ./update bulkcmd "reset"
     Write-Host ""
@@ -39,6 +38,7 @@ function Do-FX {
 ./fastboot flashing unlock
 .//fastboot getvar all
 ./fastboot oem update
+./update bulkcmd update
     Read-Host "Enter Goto Manu"
 }
 
