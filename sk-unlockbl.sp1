@@ -17,8 +17,8 @@ function Show-Menu {
     Write-Host ""
     Write-Host ""
     Write-Host ""
-    Write-Host " 1 - UNLOCK BOOTLOADER"
-    Write-Host " 2 - Run fastboot"
+    Write-Host " 1 - UNLOCK Satap 1"
+    Write-Host " 2 - Run fastboot + Unlock"
     Write-Host " 3 - EXIT"
     Write-Host ""
 }
@@ -43,7 +43,9 @@ function Do-Op1 {
 
 function Do-FX {
     # เทียบกับ :FX ใน batch
-./update bulkcmd "update"
+./update bulkcmd "fastboot"
+./fastboot flashing unlock
+./fastboot getvar all
     Read-Host "Enter Goto Manu"
 }
 
