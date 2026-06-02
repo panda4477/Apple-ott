@@ -26,7 +26,7 @@ function Show-Menu {
 function Do-Op1 {
     # เทียบกับ :op1 ใน batch
 ./update bulkcmd "keyman init 0x1234"
-./update bulkcmd "keyman write usid str 24154048420000"
+./update bulkcmd "keyman write usid str 1111111000000"
 ./update bulkcmd "saveenv"
 ./update bulkcmd "reset"
     Write-Host ""
