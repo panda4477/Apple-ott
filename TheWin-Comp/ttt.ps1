@@ -1,4 +1,3 @@
-```powershell
 # ============================================================
 # T3AMX3 / SKWAMX3 SERIAL TOOL
 # CYBER CLEAN UI EDITION
